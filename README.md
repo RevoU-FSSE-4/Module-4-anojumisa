@@ -25,3 +25,6 @@ Personal Information:
 - Manage form state and navigation with useState.
 - Enable users to move between steps and revise information.
 - Deploy your application to Netlify or Vercel.
+
+## Netlify
+Link: https://main--ano-multistep-registration.netlify.app/ 
