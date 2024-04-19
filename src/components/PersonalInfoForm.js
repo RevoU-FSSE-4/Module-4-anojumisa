@@ -50,7 +50,7 @@ const PersonalInfoForm = () => {
                 value={values.dob}
                 onChange={handleChange}
                 id="date"
-                type="dob"
+                type="date"
                 placeholder="Enter your date of birth"
             />
             <button>Next</button>

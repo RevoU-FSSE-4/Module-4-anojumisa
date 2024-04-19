@@ -1,5 +1,5 @@
 
-# Module 4 RevoUFullstack Software Engineering Assignment
+# Module 4 RevoU Fullstack Software Engineering Assignment
 
 This assignment challenges you to build a multi-step React registration form. You'll demonstrate skills in:
 - React
