@@ -1,8 +1,18 @@
 import React from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
+import { useNavigate } from "react-router-dom";
+// import Dashboard from "./Dashboard";
+// import PrivateRoute from "./PrivateRoute";
 
 function Login() {
+	const navigate = useNavigate();
+
+	function onSubmit() {
+		localStorage.setItem('isLogin', 'true');
+		navigate("/dashboard");
+	}
+
 	const logInSchema = Yup.object().shape({
 		email: Yup.string().email("Invalid email").required("Email is required"),
 		password: Yup.string()
@@ -12,22 +22,21 @@ function Login() {
 			.matches(/[a-z]/, "Password must contain at least one lowercase letter")
 			.matches(/[A-Z]/, "Password must contain at least one uppercase letter")
 			.matches(/\d/, "Password must contain at least one number")
-			.matches(/[^a-zA-Z0-9\s!@#$%^&*()]/),
+			// .matches(/[^a-zA-Z0-9\s!@#$%^&*()]/),
 	});
 	return (
 		<div>
 			<h1 className="block text-green-300 py-2 font-bold mb-1 ">Login</h1>
 			<Formik
+				onSubmit={onSubmit}
 				initialValues={{
 					email: "",
 					password: "",
 				}}
-                validationSchema={logInSchema}
-				onSubmit={(values, actions) => {
-    
-					// alert(JSON.stringify(values, null, 2));
-				}}
-				
+				validationSchema={logInSchema}
+				// onSubmit={(values, actions) => {
+				// 	// alert(JSON.stringify(values, null, 2));
+				// }}
 			>
 				<Form className="bg-gray-900 opacity-75 w-full shadow-lg rounded-lg px-8 pt-6 pb-8 mb-4">
 					<label className="block text-blue-300 py-2 font-bold">
@@ -40,7 +49,11 @@ function Login() {
 						type="email"
 						placeholder="Enter your email"
 					></Field>
-                    <ErrorMessage className="text-red-400 italic text-sm" name="email" component="div"/>
+					<ErrorMessage
+						className="text-red-400 italic text-sm"
+						name="email"
+						component="div"
+					/>
 					<label className="block text-blue-300 py-2 font-bold">Password</label>
 					<br />
 					<Field
@@ -49,7 +62,11 @@ function Login() {
 						placeholder="Enter your password"
 						type="password"
 					></Field>
-                    <ErrorMessage className="text-red-400 italic text-sm" name="password" component="div"/>
+					<ErrorMessage
+						className="text-red-400 italic text-sm"
+						name="password"
+						component="div"
+					/>
 					<br />
 					<div className="flex items-center justify-between pt-4">
 						<button

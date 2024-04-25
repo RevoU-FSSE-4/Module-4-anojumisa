@@ -4,6 +4,10 @@ import * as Yup from "yup";
 
 function Register() {
     
+function isSignUp(){
+	
+}
+
 	const signUpSchema = Yup.object().shape({
         fullname: Yup.string().required('Required'),
         email: Yup.string().email('Invalid email').required('Email is required'),

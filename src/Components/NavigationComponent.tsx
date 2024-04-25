@@ -3,6 +3,8 @@ import HomePage from "./HomePage";
 import Register from "./Register";
 import Login from "./Login";
 import NotFound from "./NotFound";
+import PrivateRoute from "./PrivateRoute";
+import Dashboard from "./Dashboard";
 
 function NavigationComponent() {
 	return (
@@ -31,6 +33,9 @@ function NavigationComponent() {
 				<Route path="/" element={<HomePage />}></Route>
 				<Route path="/register" element={<Register />}></Route>
 				<Route path="/login" element={<Login />}></Route>
+				<Route path="/" element={<PrivateRoute />}>
+					<Route path="/dashboard" element={<Dashboard />}></Route>
+				</Route>
 				<Route path="*" element={<NotFound />}></Route>
 			</Routes>
 		</div>
