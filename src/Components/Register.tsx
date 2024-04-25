@@ -1,32 +1,46 @@
 import React from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
+import { useNavigate } from "react-router-dom";
+import { Navigate, Outlet } from "react-router-dom";
 
 function Register() {
-    
-function isSignUp(){
 	
-}
+	
+		
+	
+
+	// function isSignUp() {
+	// 	const isSignUp = localStorage.getItem('isSignUp') === 'true';
+	// 	localStorage.setItem('isSignUp','true');
+	// 	return isSignUp ? <Outlet /> : < Navigate to="login"/>;
+	// }
 
 	const signUpSchema = Yup.object().shape({
-        fullname: Yup.string().required('Required'),
-        email: Yup.string().email('Invalid email').required('Email is required'),
-        dateOfBirth: Yup.date().required('Date of birth is required')
-    });
+		name: Yup.string().required("Required"),
+		email: Yup.string().email("Invalid email").required("Email is required"),
+		password: Yup.string()
+
+			.required("Password is required")
+			.min(8, "Password must be at least 8 characters long")
+			.matches(/[a-z]/, "Password must contain at least one lowercase letter")
+			.matches(/[A-Z]/, "Password must contain at least one uppercase letter")
+			.matches(/\d/, "Password must contain at least one number"),
+	});
 	return (
 		<div>
 			<h1 className="block text-green-300 py-2 font-bold mb-1 ">
 				Create Account
 			</h1>
 			<Formik
+				
 				initialValues={{
-					fullname: "",
+					name: "",
 					email: "",
-					dateOfBirth: "",
+					password: "",
 				}}
-                validationSchema={signUpSchema}
+				validationSchema={signUpSchema}
 				onSubmit={(values, actions) => {
-    
 					// alert(JSON.stringify(values, null, 2));
 				}}
 			>
@@ -37,37 +51,50 @@ function isSignUp(){
 					<br />
 					<Field
 						id="fullname"
-                        className="shadow appearance-none border rounded w-full p-3 text-gray-700 leading-tight focus:ring transform transition hover:scale-105 duration-300 ease-in-out"
+						className="shadow appearance-none border rounded w-full p-3 text-gray-700 leading-tight focus:ring transform transition hover:scale-105 duration-300 ease-in-out"
 						name="fullname"
 						placeholder="John Doe"
-                        
 					></Field>
-                    <ErrorMessage className="text-red-400 italic text-sm" name="fullname" component="div"/>
+					<ErrorMessage
+						className="text-red-400 italic text-sm"
+						name="fullname"
+						component="div"
+					/>
 					<br />
 					<label className="block text-blue-300 py-2 font-bold">
 						Email Address
 					</label>
 					<br />
 					<Field
+						
 						id="email"
-                        className="shadow appearance-none border rounded w-full p-3 text-gray-700 leading-tight focus:ring transform transition hover:scale-105 duration-300 ease-in-out"
+						className="shadow appearance-none border rounded w-full p-3 text-gray-700 leading-tight focus:ring transform transition hover:scale-105 duration-300 ease-in-out"
 						name="email"
 						type="email"
 						placeholder="john.doe@gmail.com"
 					></Field>
-                    <ErrorMessage className="text-red-400 italic text-sm"name="email" component="div"/>
+					<ErrorMessage
+						className="text-red-400 italic text-sm"
+						name="email"
+						component="div"
+					/>
 					<br />
 					<label className="block text-blue-300 py-1 font-bold">
-						Date of Birth
+						Password
 					</label>
 					<br />
 					<Field
-						id="dateOfBirth"
-                        className="shadow appearance-none border rounded w-full p-3 text-gray-700 leading-tight focus:ring transform transition hover:scale-105 duration-300 ease-in-out"
-						name="dateOfBirth"
-						type="date"
+						id="password"
+						className="shadow appearance-none border rounded w-full p-3 text-gray-700 leading-tight focus:ring transform transition hover:scale-105 duration-300 ease-in-out"
+						name="password"
+						type="password"
+						placeholder="Create a password"
 					></Field>
-                    <ErrorMessage className="text-red-400 italic text-sm" name="dateOfBirth" component="div"/>
+					<ErrorMessage
+						className="text-red-400 italic text-sm"
+						name="password"
+						component="div"
+					/>
 					<br />
 					<div className="flex items-center justify-between pt-4">
 						<button
