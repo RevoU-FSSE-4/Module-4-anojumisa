@@ -2,15 +2,57 @@ import React from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 // import Dashboard from "./Dashboard";
 // import PrivateRoute from "./PrivateRoute";
 
 function Login() {
+	const [email, setEmail] = useState<string>("");
+	const [password, setPassword] = useState<string>("");
+	
 	const navigate = useNavigate();
 
-	function onSubmit() {
+	// function onSubmit() {
+	// 	localStorage.setItem('isLogin', 'true');
+	// 	navigate("/category");
+	// }
+	async function onSubmit(event: any) {
+		// event.preventDefault();
 		localStorage.setItem('isLogin', 'true');
-		navigate("/dashboard");
+		// navigate("/category");
+
+		try {
+			const options = {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify({
+					"email": email,
+					"password": password,
+				}),
+			};
+			const response = await fetch(
+				"https://library-crud-sample.vercel.app/api/user/login",
+				options
+			);
+			if (!response.ok) {
+				throw new Error("Network response was not okay");
+			}
+			const data = await response.json();
+			console.log(data.token)
+
+			const token = data.token;
+			localStorage.setItem('token', token)
+
+			setTimeout(() => {
+				alert("Login Success");
+				navigate("/category");
+			},1000);
+			
+		} catch (e) {
+			console.error('Error:', Error);
+		}
 	}
 
 	const logInSchema = Yup.object().shape({
@@ -70,6 +112,7 @@ function Login() {
 					<br />
 					<div className="flex items-center justify-between pt-4">
 						<button
+							
 							className="mx-auto mt-5 bg-gradient-to-r from-purple-800 to-green-500 hover:from-pink-500 hover:to-green-500 text-white font-bold py-2 px-4 rounded focus:ring transform transition hover:scale-105 duration-300 ease-in-out"
 							type="submit"
 						>
