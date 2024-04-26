@@ -5,55 +5,57 @@ import { useNavigate } from "react-router-dom";
 import { Navigate, Outlet } from "react-router-dom";
 
 function Register() {
-	const [name, setName] = useState<string>("");
-	const [email, setEmail] = useState<string>("");
-	const [password, setPassword] = useState<string>("");
+	const [name, setName] = useState("");
+	const [email, setEmail] = useState("");
+	const [pass, setPassword] = useState("");
 
 	const navigate = useNavigate();
 
-	async function onSubmit(event: any) {
-		// event.preventDefault();
-		localStorage.setItem('isSignUp', 'true')
-
-		try {
-			const options = {
+	const onSubmit = async (values: {
+		name: string;
+		email: string;
+		password: string;
+	}) => {
+		const response = await fetch(
+			"https://library-crud-sample.vercel.app/api/user/register",
+			{
 				method: "POST",
 				headers: {
 					"Content-Type": "application/json",
 				},
 				body: JSON.stringify({
-					"name": name,
-					"email": email,
-					"password": password,
+					name: values.name,
+					email: values.email,
+					password: values.password,
 				}),
-			};
-			const response = await fetch(
-				"https://library-crud-sample.vercel.app/api/user/register",
-				options
-			);
-			if (!response.ok) {
-				throw new Error("Network response was not okay");
 			}
-			setTimeout(() => {
-				alert("Register Success");
+		);
+
+		console.log("response register", response);
+		const result = await response.json();
+
+		try {
+			if (!response.ok) {
+				alert("Register failed");
+			} else {
+				console.log("response success", result);
+				alert("Register success");
 				navigate("/login");
-			},1000);
-			
-		} catch (e) {
-			console.error('Error:', Error);
+			}
+		} catch (error) {
+			alert(error);
 		}
-	}
+	};
 
 	const signUpSchema = Yup.object().shape({
 		name: Yup.string().required("Required"),
 		email: Yup.string().email("Invalid email").required("Email is required"),
 		password: Yup.string()
-
-			.required("Password is required")
-			// .min(8, "Password must be at least 8 characters long")
-			// .matches(/[a-z]/, "Password must contain at least one lowercase letter")
-			// .matches(/[A-Z]/, "Password must contain at least one uppercase letter")
-			// .matches(/\d/, "Password must contain at least one number"),
+		.required("Password is required"),
+		// .min(8, "Password must be at least 8 characters long")
+		// .matches(/[a-z]/, "Password must contain at least one lowercase letter")
+		// .matches(/[A-Z]/, "Password must contain at least one uppercase letter")
+		// .matches(/\d/, "Password must contain at least one number"),
 	});
 	return (
 		<div>
@@ -72,16 +74,14 @@ function Register() {
 				// 	// alert(JSON.stringify(values, null, 2));
 				// }}
 			>
-				<Form 
-				
-				className="bg-gray-900 opacity-75 w-full shadow-lg rounded-lg px-8 pt-6 pb-8 mb-4">
+				<Form className="bg-gray-900 opacity-75 w-full shadow-lg rounded-lg px-8 pt-6 pb-8 mb-4">
 					<label className="block text-blue-300 py-2 font-bold">
 						Full Name
 					</label>
 					<br />
 					<Field
 						// onChange={(e: any) => setName(e.target.value)}
-						id="name"
+						// id="name"
 						className="shadow appearance-none border rounded w-full p-3 text-gray-700 leading-tight focus:ring transform transition hover:scale-105 duration-300 ease-in-out"
 						name="name"
 						placeholder="John Doe"
@@ -98,7 +98,7 @@ function Register() {
 					<br />
 					<Field
 						// onChange={(e: any) => setEmail(e.target.value)}
-						id="email"
+						// id="email"
 						className="shadow appearance-none border rounded w-full p-3 text-gray-700 leading-tight focus:ring transform transition hover:scale-105 duration-300 ease-in-out"
 						name="email"
 						type="email"
@@ -114,7 +114,7 @@ function Register() {
 					<br />
 					<Field
 						// onChange={(e: any) => setPassword(e.target.value)}
-						id="password"
+						// id="password"
 						className="shadow appearance-none border rounded w-full p-3 text-gray-700 leading-tight focus:ring transform transition hover:scale-105 duration-300 ease-in-out"
 						name="password"
 						type="password"

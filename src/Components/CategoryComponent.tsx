@@ -181,14 +181,14 @@ export default function CategoryComponent() {
 					Category name
 				</label>
 				<br />
-				<input type="text" />
+				<input className="text-black" type="text" />
 				<label className="block text-blue-300 py-2 font-bold">
 					Category description
 				</label>
 				<br />
-				<input type="text" />
+				<input className="text-black" type="text" />
 				<label className="block text-blue-300 py-2 font-bold">Status</label>
-				<input type="text" />
+				<input className="text-black" type="text" />
 				<br />
 				<>
 				<button
