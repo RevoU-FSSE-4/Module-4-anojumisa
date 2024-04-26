@@ -5,7 +5,7 @@ import Login from "./Login";
 import NotFound from "./NotFound";
 import PrivateRoute from "./PrivateRoute";
 import Dashboard from "./Dashboard";
-import Category from "./Category";
+import Category from "./CategoryComponent";
 
 function NavigationComponent() {
 	return (
@@ -31,6 +31,7 @@ function NavigationComponent() {
 				</Link>
 			</div>
 			<Routes>
+				<Route path="/" element={<HomePage />}></Route>
 				<Route path="/" element={<HomePage />}></Route>
 				<Route path="/register" element={<Register />}></Route>
 				<Route path="/login" element={<Login />}></Route>

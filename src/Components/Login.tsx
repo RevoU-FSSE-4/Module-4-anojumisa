@@ -44,13 +44,13 @@ function Login() {
 
 			const token = data.token;
 			localStorage.setItem('token', token)
-
+			
 			setTimeout(() => {
-				alert("Login Success");
+				alert("Login succesful");
 				navigate("/category");
 			},1000);
 			
-		} catch (e) {
+		} catch (error) {
 			console.error('Error:', Error);
 		}
 	}

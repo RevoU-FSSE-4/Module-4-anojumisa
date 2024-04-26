@@ -13,6 +13,7 @@ function Register() {
 
 	async function onSubmit(event: any) {
 		// event.preventDefault();
+		localStorage.setItem('isSignUp', 'true')
 
 		try {
 			const options = {

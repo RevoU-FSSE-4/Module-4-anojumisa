@@ -4,6 +4,28 @@ import { Link } from "react-router-dom";
 function HomePage() {
 	return (
 		<div className="container pt-22 mx-auto flex flex-wrap flex-col md:flex-row items-center">
+			<div className="fixed top-0 left-0 w-full z-50 shadow-md px-4 py-2 flex items-center justify-end">
+				<Link
+					to="/"
+					className="inline-block text-blue-300 no-underline hover:text-pink-500 hover:text-underline text-center h-10 p-2 md:h-auto md:p-4 transform hover:scale-125 duration-300 ease-in-out"
+				>
+					Home
+				</Link>
+				<Link
+					to="/register"
+					className="inline-block text-blue-300 no-underline hover:text-pink-500 hover:text-underline text-center h-10 p-2 md:h-auto md:p-4 transform hover:scale-125 duration-300 ease-in-out"
+				>
+					Register
+				</Link>
+				<Link
+					to="/login"
+					className="inline-block text-blue-300 no-underline hover:text-pink-500 hover:text-underline text-center h-10 p-2 md:h-auto md:p-4 transform hover:scale-125 duration-300 ease-in-out"
+				>
+					Login
+				</Link>
+				
+			</div>
+			
 			<h1 className="my-4 text-3xl md:text-5xl text-white opacity-75 font-bold leading-tight text-center md:text-left">
 				Empower your full-stack development skills with the
 				<br />
